@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using Windows.Devices.Gpio;
 using Windows.UI.Xaml;
 
@@ -11,6 +12,7 @@ namespace W10Rpi2Blinky
         public MainPage()
         {
             InitializeComponent();
+            InitGpioController();
             Loaded += MainPage_Loaded;
         }
 
@@ -19,7 +21,6 @@ namespace W10Rpi2Blinky
             _timerBlink = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(1000) };
             _timerBlink.Tick += _timerBlink_Tick;
             _timerBlink.Start();
-            InitGpioController();
         }
 
         private const int LedPin = 4;
@@ -29,7 +30,8 @@ namespace W10Rpi2Blinky
         private void _timerBlink_Tick(object sender, object e)
         {
             TextBlockStatus.Text = $"Led Status is {_ledStatus}";
-            _pinD4.Write(_ledStatus ? GpioPinValue.High : GpioPinValue.Low);
+            if (_pinD4 != null)
+                _pinD4.Write(_ledStatus ? GpioPinValue.High : GpioPinValue.Low);
             _ledStatus = !_ledStatus;
         }
 
@@ -41,9 +43,22 @@ namespace W10Rpi2Blinky
                 _pinD4 = null;
                 return;
             }
-            _pinD4 = gpio.OpenPin(LedPin);
 
-            if (_pinD4 == null)
+            Debug.WriteLine("pin count: " + gpio.PinCount);
+
+            GpioOpenStatus openstatus = GpioOpenStatus.PinUnavailable;
+
+            //for (int i = 0; i < gpio.PinCount - 1; i++)
+            //{
+            //    gpio.TryOpenPin(i, GpioSharingMode.Exclusive, out _pinD4, out openstatus);
+            //    Debug.WriteLine("pin: " + i + " status:" + openstatus);
+            //    //if (openstatus == GpioOpenStatus.PinOpened)
+            //    //    return;
+            //}
+
+            _pinD4 = gpio.OpenPin(5);
+
+            if (openstatus == GpioOpenStatus.PinUnavailable || _pinD4 == null)
             {
                 return;
             }
