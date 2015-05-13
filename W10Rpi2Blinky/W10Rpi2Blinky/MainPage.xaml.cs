@@ -23,7 +23,6 @@ namespace W10Rpi2Blinky
             _timerBlink.Start();
         }
 
-        private const int LedPin = 4;
         private GpioPin _pinD4;
         private bool _ledStatus;
 
@@ -31,7 +30,9 @@ namespace W10Rpi2Blinky
         {
             TextBlockStatus.Text = $"Led Status is {_ledStatus}";
             if (_pinD4 != null)
+            {
                 _pinD4.Write(_ledStatus ? GpioPinValue.High : GpioPinValue.Low);
+            }
             _ledStatus = !_ledStatus;
         }
 
@@ -44,21 +45,11 @@ namespace W10Rpi2Blinky
                 return;
             }
 
-            Debug.WriteLine("pin count: " + gpio.PinCount);
-
             GpioOpenStatus openstatus = GpioOpenStatus.PinUnavailable;
+            gpio.TryOpenPin(LedPin, GpioSharingMode.Exclusive, out _pinD4, out openstatus);
+            Debug.WriteLine("pin: " + LedPin + " status: " + openstatus);
 
-            //for (int i = 0; i < gpio.PinCount - 1; i++)
-            //{
-            //    gpio.TryOpenPin(i, GpioSharingMode.Exclusive, out _pinD4, out openstatus);
-            //    Debug.WriteLine("pin: " + i + " status:" + openstatus);
-            //    //if (openstatus == GpioOpenStatus.PinOpened)
-            //    //    return;
-            //}
-
-            _pinD4 = gpio.OpenPin(5);
-
-            if (openstatus == GpioOpenStatus.PinUnavailable || _pinD4 == null)
+            if (_pinD4 == null)
             {
                 return;
             }
@@ -66,5 +57,7 @@ namespace W10Rpi2Blinky
             _pinD4.Write(GpioPinValue.High);
             _pinD4.SetDriveMode(GpioPinDriveMode.Output);
         }
+        private const int LedPin = 23;
+
     }
 }
