@@ -1,30 +1,55 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
+using Windows.Devices.Gpio;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
-
-// The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
 namespace W10Rpi2Blinky
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
-    public sealed partial class MainPage : Page
+    public sealed partial class MainPage
     {
+        private DispatcherTimer _timerBlink;
+
         public MainPage()
         {
             InitializeComponent();
+            Loaded += MainPage_Loaded;
+        }
+
+        private void MainPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            _timerBlink = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(1000) };
+            _timerBlink.Tick += _timerBlink_Tick;
+            _timerBlink.Start();
+            InitGpioController();
+        }
+
+        private const int LedPin = 4;
+        private GpioPin _pinD4;
+        private bool _ledStatus;
+
+        private void _timerBlink_Tick(object sender, object e)
+        {
+            TextBlockStatus.Text = $"Led Status is {_ledStatus}";
+            _pinD4.Write(_ledStatus ? GpioPinValue.High : GpioPinValue.Low);
+            _ledStatus = !_ledStatus;
+        }
+
+        private void InitGpioController()
+        {
+            var gpio = GpioController.GetDefault();
+            if (gpio == null)
+            {
+                _pinD4 = null;
+                return;
+            }
+            _pinD4 = gpio.OpenPin(LedPin);
+
+            if (_pinD4 == null)
+            {
+                return;
+            }
+
+            _pinD4.Write(GpioPinValue.High);
+            _pinD4.SetDriveMode(GpioPinDriveMode.Output);
         }
     }
 }
