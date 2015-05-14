@@ -7,9 +7,9 @@
   IgnorableNamespaces="uap mp">
 
   <Identity
-    Name="b82b2e3a-8263-4de9-95eb-0bac40afad94"
+    Name="W10Rpi2Blinky"
     Publisher="CN=Bruno"
-    Version="1.0.0.0" />
+    Version="1.0.0.2" />
 
   <mp:PhoneIdentity PhoneProductId="b82b2e3a-8263-4de9-95eb-0bac40afad94" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
@@ -44,5 +44,7 @@
 
   <Capabilities>
     <Capability Name="internetClient" />
+    <!-- Uncomment the capability below to enable GPIO -->
+    <DeviceCapability Name="916EF1CB-8426-468D-A6F7-9AE8076881B3"/>
   </Capabilities>
 </Package>
