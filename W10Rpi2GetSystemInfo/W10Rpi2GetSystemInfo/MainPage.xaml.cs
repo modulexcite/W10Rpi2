@@ -28,13 +28,11 @@ namespace W10Rpi2GetSystemInfo
 
         private async Task<string> EnumerateHidDevices()
         {
-            var ret = "";
-            var myDevices = await DeviceInformation.FindAllAsync();
-            foreach (var myDevice in myDevices)
-            {
-                ret += $@"{myDevice.Name} - Kind {myDevice.Kind}{Environment.NewLine}";
-            }
-            Debug.WriteLine(ret); 
+            var localDevices = await DeviceInformation.FindAllAsync();
+            var uniqueDevices = localDevices.GroupBy(x => x.Name).Select(y => y.First());
+            var ret = uniqueDevices.Aggregate("", (current, myDevice) => current + $@"{myDevice.Name} 
+      - Id {myDevice.Id}{Environment.NewLine}");
+            Debug.WriteLine(ret);
             return ret;
         }
     }
