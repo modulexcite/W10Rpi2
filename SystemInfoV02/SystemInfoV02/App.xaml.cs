@@ -5,9 +5,6 @@ using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
-using Microsoft.ApplicationInsights;
-
-// The Blank Application template is documented at http://go.microsoft.com/fwlink/?LinkId=402347&clcid=0x409
 
 namespace SystemInfoV02
 {
@@ -16,10 +13,6 @@ namespace SystemInfoV02
     /// </summary>
     sealed partial class App : Application
     {
-        /// <summary>
-        /// Allows tracking page views, exceptions and other telemetry through the Microsoft Application Insights service.
-        /// </summary>
-        public static TelemetryClient TelemetryClient;
 
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
@@ -27,7 +20,6 @@ namespace SystemInfoV02
         /// </summary>
         public App()
         {
-            TelemetryClient = new TelemetryClient();
 
             this.InitializeComponent();
             this.Suspending += OnSuspending;
