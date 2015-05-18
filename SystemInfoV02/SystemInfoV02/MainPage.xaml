@@ -22,6 +22,6 @@
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
                    Grid.Row="1">Not Started</TextBlock>
-        <local:ConnectionProfileList Grid.Row="2"></local:ConnectionProfileList>
+        <local:InternetConnectionProfile Grid.Row="2"></local:InternetConnectionProfile>
     </Grid>
 </Page>

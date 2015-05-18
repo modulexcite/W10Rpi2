@@ -35,79 +35,71 @@ namespace SystemInfoV02
 
         string GetConnectionProfile(ConnectionProfile connectionProfile)
         {
-            string connectionProfileInfo = string.Empty;
-            if (connectionProfile != null)
+            var connectionProfileInfo = string.Empty;
+            if (connectionProfile == null) return connectionProfileInfo;
+
+            connectionProfileInfo = "Profile Name : " + connectionProfile.ProfileName + "\n";
+
+            switch (connectionProfile.GetNetworkConnectivityLevel())
             {
-                connectionProfileInfo = "Profile Name : " + connectionProfile.ProfileName + "\n";
+                case NetworkConnectivityLevel.None:
+                    connectionProfileInfo += "Connectivity Level : None\n";
+                    break;
+                case NetworkConnectivityLevel.LocalAccess:
+                    connectionProfileInfo += "Connectivity Level : Local Access\n";
+                    break;
+                case NetworkConnectivityLevel.ConstrainedInternetAccess:
+                    connectionProfileInfo += "Connectivity Level : Constrained Internet Access\n";
+                    break;
+                case NetworkConnectivityLevel.InternetAccess:
+                    connectionProfileInfo += "Connectivity Level : Internet Access\n";
+                    break;
+            }
 
-                switch (connectionProfile.GetNetworkConnectivityLevel())
-                {
-                    case NetworkConnectivityLevel.None:
-                        connectionProfileInfo += "Connectivity Level : None\n";
-                        break;
-                    case NetworkConnectivityLevel.LocalAccess:
-                        connectionProfileInfo += "Connectivity Level : Local Access\n";
-                        break;
-                    case NetworkConnectivityLevel.ConstrainedInternetAccess:
-                        connectionProfileInfo += "Connectivity Level : Constrained Internet Access\n";
-                        break;
-                    case NetworkConnectivityLevel.InternetAccess:
-                        connectionProfileInfo += "Connectivity Level : Internet Access\n";
-                        break;
-                }
+            switch (connectionProfile.GetDomainConnectivityLevel())
+            {
+                case DomainConnectivityLevel.None:
+                    connectionProfileInfo += "Domain Connectivity Level : None\n";
+                    break;
+                case DomainConnectivityLevel.Unauthenticated:
+                    connectionProfileInfo += "Domain Connectivity Level : Unauthenticated\n";
+                    break;
+                case DomainConnectivityLevel.Authenticated:
+                    connectionProfileInfo += "Domain Connectivity Level : Authenticated\n";
+                    break;
+            }
 
-                switch (connectionProfile.GetDomainConnectivityLevel())
-                {
-                    case DomainConnectivityLevel.None:
-                        connectionProfileInfo += "Domain Connectivity Level : None\n";
-                        break;
-                    case DomainConnectivityLevel.Unauthenticated:
-                        connectionProfileInfo += "Domain Connectivity Level : Unauthenticated\n";
-                        break;
-                    case DomainConnectivityLevel.Authenticated:
-                        connectionProfileInfo += "Domain Connectivity Level : Authenticated\n";
-                        break;
-                }
-
-                //Get Connection Cost information
-                ConnectionCost connectionCost = connectionProfile.GetConnectionCost();
-                connectionProfileInfo += GetConnectionCostInfo(connectionCost);
                 
-                //Get Dataplan Status information
-                DataPlanStatus dataPlanStatus = connectionProfile.GetDataPlanStatus();
-                connectionProfileInfo += GetDataPlanStatusInfo(dataPlanStatus);
-                
-                //Get Network Security Settings
-                NetworkSecuritySettings netSecuritySettings = connectionProfile.NetworkSecuritySettings;
-                connectionProfileInfo += GetNetworkSecuritySettingsInfo(netSecuritySettings);
+            //Get Network Security Settings
+            var netSecuritySettings = connectionProfile.NetworkSecuritySettings;
+            connectionProfileInfo += GetNetworkSecuritySettingsInfo(netSecuritySettings);
 
-                //Get Wlan Connection Profile Details if this is a Wlan ConnectionProfile
-                if (connectionProfile.IsWlanConnectionProfile)
-                {
-                    WlanConnectionProfileDetails wlanConnectionProfileDetails = connectionProfile.WlanConnectionProfileDetails;
-                    connectionProfileInfo += GetWlanConnectionProfileDetailsInfo(wlanConnectionProfileDetails);
-                }
+            //Get Wlan Connection Profile Details if this is a Wlan ConnectionProfile
+            if (connectionProfile.IsWlanConnectionProfile)
+            {
+                var wlanConnectionProfileDetails = connectionProfile.WlanConnectionProfileDetails;
+                connectionProfileInfo += GetWlanConnectionProfileDetailsInfo(wlanConnectionProfileDetails);
+            }
 
-                //Get Wwan Connection Profile Details if this is a Wwan ConnectionProfile
-                if (connectionProfile.IsWwanConnectionProfile)
-                {
-                    WwanConnectionProfileDetails wwanConnectionProfileDetails = connectionProfile.WwanConnectionProfileDetails;
-                    connectionProfileInfo += GetWwanConnectionProfileDetailsInfo(wwanConnectionProfileDetails);
-                }
+            //Get Wwan Connection Profile Details if this is a Wwan ConnectionProfile
+            if (connectionProfile.IsWwanConnectionProfile)
+            {
+                var wwanConnectionProfileDetails = connectionProfile.WwanConnectionProfileDetails;
+                connectionProfileInfo += GetWwanConnectionProfileDetailsInfo(wwanConnectionProfileDetails);
+            }
 
-                //Get the Service Provider GUID
-                if (connectionProfile.ServiceProviderGuid.HasValue)
-                {
-                    connectionProfileInfo += "====================\n";
-                    connectionProfileInfo += "Service Provider GUID: " + connectionProfile.ServiceProviderGuid + "\n";
-                }
+            //Get the Service Provider GUID
+            if (connectionProfile.ServiceProviderGuid.HasValue)
+            {
+                connectionProfileInfo += "====================\n";
+                connectionProfileInfo += "Service Provider GUID: " + connectionProfile.ServiceProviderGuid + "\n";
+            }
 
-                //Get the number of signal bars
-                if (connectionProfile.GetSignalBars().HasValue)
-                {
-                    connectionProfileInfo += "====================\n";
-                    connectionProfileInfo += "Signal Bars: " + connectionProfile.GetSignalBars() + "\n";
-                }
+            //Get the number of signal bars
+            if (connectionProfile.GetSignalBars().HasValue)
+            {
+                connectionProfileInfo += "====================\n";
+                connectionProfileInfo += "Signal Bars: " + connectionProfile.GetSignalBars() + "\n";
             }
             return connectionProfileInfo;
         }

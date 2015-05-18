@@ -101,6 +101,9 @@
     <Compile Include="ConnectionProfileList.xaml.cs">
       <DependentUpon>ConnectionProfileList.xaml</DependentUpon>
     </Compile>
+    <Compile Include="internetconnectionprofile.xaml.cs">
+      <DependentUpon>internetconnectionprofile.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -128,6 +131,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="ConnectionProfileList.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="internetconnectionprofile.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
