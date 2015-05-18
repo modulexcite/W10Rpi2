@@ -21,6 +21,7 @@
         <TextBlock x:Name="TextBlockSystemInformation"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
+                   TextWrapping="Wrap"
                    Grid.Row="1">Not Started</TextBlock>
         <local:InternetConnectionProfile Grid.Row="2"></local:InternetConnectionProfile>
     </Grid>
