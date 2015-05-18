@@ -10,16 +10,18 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
         <Button x:Name="ButtonGetSystemInformation"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 Padding="25"
-                Grid.Row="0">Display System Information</Button>
+                Grid.Row="0"
+                Click="ButtonGetSystemInformation_Click">Display System Information</Button>
         <TextBlock x:Name="TextBlockSystemInformation"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
                    Grid.Row="1">Not Started</TextBlock>
-
+        <local:ConnectionProfileList Grid.Row="2"></local:ConnectionProfileList>
     </Grid>
 </Page>
