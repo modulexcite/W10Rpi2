@@ -9,18 +9,27 @@
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Background="Aqua">
+            <TextBlock x:Name="TextBlockTitle"
+                       Margin="30"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       TextWrapping="Wrap"
+                       FontSize="42.667">El Bruno - Labs Windows 10 and Raspberry Pi 2</TextBlock>
+        </StackPanel>
         <Button x:Name="ButtonGetSystemInformation"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 Padding="25"
-                Grid.Row="0"
+                Grid.Row="1"
                 Click="ButtonGetSystemInformation_Click">Display System Information</Button>
         <TextBlock x:Name="TextBlockSystemInformation"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
                    TextWrapping="Wrap"
-                   Grid.Row="1">Not Started</TextBlock>
+                   Grid.Row="2">Not Started</TextBlock>
     </Grid>
 </Page>
