@@ -10,7 +10,6 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
         <Button x:Name="ButtonGetSystemInformation"
                 HorizontalAlignment="Center"
@@ -23,6 +22,5 @@
                    VerticalAlignment="Center"
                    TextWrapping="Wrap"
                    Grid.Row="1">Not Started</TextBlock>
-        <local:InternetConnectionProfile Grid.Row="2"></local:InternetConnectionProfile>
     </Grid>
 </Page>
