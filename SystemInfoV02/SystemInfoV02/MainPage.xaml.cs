@@ -1,6 +1,7 @@
 ﻿using System;
 using Windows.ApplicationModel;
-using Windows.Devices.Enumeration;
+using Windows.System;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -13,18 +14,25 @@ namespace SystemInfoV02
             InitializeComponent();
         }
 
-        private void ButtonGetSystemInformation_Click(object sender, RoutedEventArgs e)
+        private async void ButtonGetSystemInformation_Click(object sender, RoutedEventArgs e)
         {
-            TextBlockSystemInformation.Text = GetSystemInformation();
-
+            var systemInformation = GetSystemInformation();
+            if (IsArmArchitecture())
+            {
+                TextBlockSystemInformation.Text = systemInformation;
+            }
+            else
+            {
+                var   md = new MessageDialog(systemInformation);
+                await md.ShowAsync();
+            }
         }
 
         private string GetSystemInformation()
         {
             var package = Package.Current;
-            PackageId packageId = package.Id;
-            PackageVersion version = packageId.Version;
-
+            var packageId = package.Id;
+            var version = packageId.Version;
             var ret =
                 $@"========================
 Name: { packageId.Name}
@@ -44,8 +52,14 @@ Processor Count : {Environment.ProcessorCount}
 TickCount:{Environment.TickCount} 
 ========================
 ";
-
             return ret;
+        }
+
+        private bool IsArmArchitecture()
+        {
+            var package = Package.Current;
+            var architecture = package.Id.Architecture;
+            return architecture == ProcessorArchitecture.Arm;
         }
     }
 }
