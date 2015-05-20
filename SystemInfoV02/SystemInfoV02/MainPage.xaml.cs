@@ -21,33 +21,29 @@ namespace SystemInfoV02
 
         private string GetSystemInformation()
         {
-            var ret =
-                @"Processor Count : " + Environment.ProcessorCount + Environment.NewLine +
-                "TickCount:" + Environment.TickCount + Environment.NewLine;
-
             var package = Package.Current;
             PackageId packageId = package.Id;
             PackageVersion version = packageId.Version;
 
-            ret += String.Format(
-                               "Name: \"{0}\"\n" +
-                               "Version: {1}.{2}.{3}.{4}\n" +
-                               "Architecture: {5}\n" +
-                               "ResourceId: \"{6}\"\n" +
-                               "Publisher: \"{7}\"\n" +
-                               "PublisherId: \"{8}\"\n" +
-                               "FullName: \"{9}\"\n" +
-                               "FamilyName: \"{10}\"\n" +
-                               "IsFramework: {11}",
-                               packageId.Name,
-                               version.Major, version.Minor, version.Build, version.Revision,
-                               packageId.Architecture,
-                               packageId.ResourceId,
-                               packageId.Publisher,
-                               packageId.PublisherId,
-                               packageId.FullName,
-                               packageId.FamilyName,
-                               package.IsFramework);
+            var ret =
+                $@"========================
+Name: { packageId.Name}
+========================
+Version: {version.Major}.{version.Minor}.{version.Build}.{version.Revision}
+Architecture: {packageId.Architecture}
+========================
+ResourceId: {packageId.ResourceId}
+Publisher: {packageId.Publisher}
+PublisherId: {packageId.PublisherId} 
+========================
+FullName: {packageId.FullName}
+FamilyName: {packageId.FamilyName} 
+IsFramework: {package.IsFramework}
+========================
+Processor Count : {Environment.ProcessorCount}
+TickCount:{Environment.TickCount} 
+========================
+";
 
             return ret;
         }
