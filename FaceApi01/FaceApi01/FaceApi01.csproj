@@ -111,12 +111,17 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\jesus_thumbs-up_pic-1.jpg" />
+    <Content Include="Assets\test.jpg" />
+    <Content Include="Assets\test2.jpg" />
+    <Content Include="Assets\User-Refresh.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\Logo.scale-100.png" />
     <Content Include="Assets\SmallLogo.scale-100.png" />
     <Content Include="Assets\SplashScreen.scale-100.png" />
     <Content Include="Assets\StoreLogo.scale-100.png" />
     <Content Include="Assets\WideLogo.scale-100.png" />
+    <Content Include="test.jpg" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
