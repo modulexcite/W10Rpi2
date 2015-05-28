@@ -21,10 +21,17 @@ namespace FaceApi01
 
         private async void ButtonGetFacesImage1_Click(object sender, RoutedEventArgs e)
         {
-            var subscriptionKey = "4c138b4d82b947beb2e2926c92d1e514";
-            var fileUrl = GetSelectedItemUrl();
-            var client = new FaceServiceClient(subscriptionKey);
-            var faces = await client.DetectAsync(fileUrl, false, true, true);
+            try
+            {
+                var subscriptionKey = "4c138b4d82b947beb2e2926c92d1e514";
+                var fileUrl = GetSelectedItemUrl();
+                var client = new FaceServiceClient(subscriptionKey);
+                var faces = await client.DetectAsync(fileUrl, false, true, true);
+            }
+            catch (Exception exception)
+            {
+                TextBlockOutput.Text = exception.ToString();
+            }
         }
 
         void InitImageList()
@@ -45,7 +52,14 @@ namespace FaceApi01
 
         private void Selector_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ImageFaces.Source = new BitmapImage(new Uri(GetSelectedItemUrl(), UriKind.RelativeOrAbsolute));
+            try
+            {
+                ImageFaces.Source = new BitmapImage(new Uri(GetSelectedItemUrl(), UriKind.RelativeOrAbsolute));
+            }
+            catch (Exception exception)
+            {
+                TextBlockOutput.Text = exception.ToString();
+            }
         }
 
         private string GetSelectedItemUrl()

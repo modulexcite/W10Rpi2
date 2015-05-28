@@ -49,5 +49,13 @@
                     HorizontalAlignment="Center"
                     Click="ButtonGetFacesImage1_Click">Get Faces</Button>
         </StackPanel>
+
+        <ScrollViewer Grid.Row="1"
+                      Grid.Column="1">
+            <TextBlock x:Name="TextBlockOutput"
+                       Text="Output"
+                       TextWrapping="Wrap"
+                       ScrollViewer.HorizontalScrollBarVisibility="Visible"></TextBlock>
+        </ScrollViewer>
     </Grid>
 </Page>
