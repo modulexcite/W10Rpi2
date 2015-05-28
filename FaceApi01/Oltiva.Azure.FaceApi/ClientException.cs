@@ -29,7 +29,7 @@ namespace Oltiva.Azure.FaceApi
         public ClientException(string message)
             : base(message)
         {
-            this.Error = new ClientError()
+            Error = new ClientError()
             {
                 Code = HttpStatusCode.InternalServerError.ToString(),
                 Message = message
@@ -44,11 +44,11 @@ namespace Oltiva.Azure.FaceApi
         public ClientException(string message, HttpStatusCode httpStatus)
             : base(message)
         {
-            this.HttpStatus = httpStatus;
+            HttpStatus = httpStatus;
 
-            this.Error = new ClientError()
+            Error = new ClientError()
             {
-                Code = this.HttpStatus.ToString(),
+                Code = HttpStatus.ToString(),
                 Message = message
             };
         }
@@ -61,7 +61,7 @@ namespace Oltiva.Azure.FaceApi
         public ClientException(string message, Exception innerException)
             : base(message, innerException)
         {
-            this.Error = new ClientError()
+            Error = new ClientError()
             {
                 Code = HttpStatusCode.InternalServerError.ToString(),
                 Message = message
@@ -78,9 +78,9 @@ namespace Oltiva.Azure.FaceApi
         public ClientException(string message, string errorCode, HttpStatusCode httpStatus, Exception innerException)
             : base(message, innerException)
         {
-            this.HttpStatus = httpStatus;
+            HttpStatus = httpStatus;
 
-            this.Error = new ClientError()
+            Error = new ClientError()
             {
                 Code = errorCode,
                 Message = message
@@ -94,8 +94,8 @@ namespace Oltiva.Azure.FaceApi
         /// <param name="httpStatus">The http status.</param>
         public ClientException(ClientError error, HttpStatusCode httpStatus)
         {
-            this.Error = error;
-            this.HttpStatus = httpStatus;
+            Error = error;
+            HttpStatus = httpStatus;
         }
 
         /// <summary>
@@ -104,7 +104,7 @@ namespace Oltiva.Azure.FaceApi
         /// <value>
         /// The HTTP status.
         /// </value>
-        public HttpStatusCode HttpStatus { get; private set; }
+        public HttpStatusCode HttpStatus { get; }
 
         /// <summary>
         /// Gets or sets the httpError message.

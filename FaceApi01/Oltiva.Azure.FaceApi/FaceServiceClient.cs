@@ -110,7 +110,7 @@ namespace Oltiva.Azure.FaceApi
                 analyzesGender,
                 analyzesHeadPose,
                 SubscriptionKeyName,
-                this.subscriptionKey);
+                subscriptionKey);
             var request = WebRequest.Create(requestUrl);
 
             dynamic requestBody = new ExpandoObject();
@@ -139,7 +139,7 @@ namespace Oltiva.Azure.FaceApi
                 analyzesGender,
                 analyzesHeadPose,
                 SubscriptionKeyName,
-                this.subscriptionKey);
+                subscriptionKey);
             var request = WebRequest.Create(requestUrl);
 
             return await SendAsync<Stream, Face[]>("POST", imageStream, request);
@@ -153,7 +153,7 @@ namespace Oltiva.Azure.FaceApi
         /// <returns>The verification result.</returns>
         public async Task<VerifyResult> VerifyAsync(Guid faceId1, Guid faceId2)
         {
-            var requestUrl = string.Format("{0}/{1}?{2}={3}", ServiceHost, VerificationsQuery, SubscriptionKeyName, this.subscriptionKey);
+            var requestUrl = string.Format("{0}/{1}?{2}={3}", ServiceHost, VerificationsQuery, SubscriptionKeyName, subscriptionKey);
             var request = WebRequest.Create(requestUrl);
 
             dynamic requestBody = new ExpandoObject();
@@ -172,7 +172,7 @@ namespace Oltiva.Azure.FaceApi
         /// <returns>The identification results</returns>
         public async Task<IdentifyResult[]> IdentifyAsync(string personGroupId, Guid[] faceIds, int maxNumOfCandidatesReturned = 1)
         {
-            var requestUrl = string.Format("{0}/{1}?{2}={3}", ServiceHost, IdentificationsQuery, SubscriptionKeyName, this.subscriptionKey);
+            var requestUrl = string.Format("{0}/{1}?{2}={3}", ServiceHost, IdentificationsQuery, SubscriptionKeyName, subscriptionKey);
             var request = WebRequest.Create(requestUrl);
 
             dynamic requestBody = new ExpandoObject();
@@ -192,7 +192,7 @@ namespace Oltiva.Azure.FaceApi
         /// <returns>Task object.</returns>
         public async Task CreatePersonGroupAsync(string personGroupId, string name, string userData = null)
         {
-            var requestUrl = string.Format("{0}/{1}/{2}?{3}={4}", ServiceHost, PersonGroupsQuery, personGroupId, SubscriptionKeyName, this.subscriptionKey);
+            var requestUrl = string.Format("{0}/{1}/{2}?{3}={4}", ServiceHost, PersonGroupsQuery, personGroupId, SubscriptionKeyName, subscriptionKey);
             var request = WebRequest.Create(requestUrl);
 
             dynamic requestBody = new ExpandoObject();
@@ -209,10 +209,10 @@ namespace Oltiva.Azure.FaceApi
         /// <returns>The person group entity.</returns>
         public async Task<PersonGroup> GetPersonGroupAsync(string personGroupId)
         {
-            var requestUrl = string.Format("{0}/{1}/{2}?{3}={4}", ServiceHost, PersonGroupsQuery, personGroupId, SubscriptionKeyName, this.subscriptionKey);
+            var requestUrl = string.Format("{0}/{1}/{2}?{3}={4}", ServiceHost, PersonGroupsQuery, personGroupId, SubscriptionKeyName, subscriptionKey);
             var request = WebRequest.Create(requestUrl);
 
-            return await this.GetAsync<PersonGroup>("GET", request);
+            return await GetAsync<PersonGroup>("GET", request);
         }
 
         /// <summary>
@@ -224,7 +224,7 @@ namespace Oltiva.Azure.FaceApi
         /// <returns>Task object.</returns>
         public async Task UpdatePersonGroupAsync(string personGroupId, string name, string userData = null)
         {
-            var requestUrl = string.Format("{0}/{1}/{2}?{3}={4}", ServiceHost, PersonGroupsQuery, personGroupId, SubscriptionKeyName, this.subscriptionKey);
+            var requestUrl = string.Format("{0}/{1}/{2}?{3}={4}", ServiceHost, PersonGroupsQuery, personGroupId, SubscriptionKeyName, subscriptionKey);
             var request = WebRequest.Create(requestUrl);
 
             dynamic requestBody = new ExpandoObject();
@@ -241,10 +241,10 @@ namespace Oltiva.Azure.FaceApi
         /// <returns>Task object.</returns>
         public async Task DeletePersonGroupAsync(string personGroupId)
         {
-            var requestUrl = string.Format("{0}/{1}/{2}?{3}={4}", ServiceHost, PersonGroupsQuery, personGroupId, SubscriptionKeyName, this.subscriptionKey);
+            var requestUrl = string.Format("{0}/{1}/{2}?{3}={4}", ServiceHost, PersonGroupsQuery, personGroupId, SubscriptionKeyName, subscriptionKey);
             var request = WebRequest.Create(requestUrl);
 
-            await this.GetAsync<object>("DELETE", request);
+            await GetAsync<object>("DELETE", request);
         }
 
         /// <summary>
@@ -258,10 +258,10 @@ namespace Oltiva.Azure.FaceApi
                 ServiceHost,
                 PersonGroupsQuery,
                 SubscriptionKeyName,
-                this.subscriptionKey);
+                subscriptionKey);
             var request = WebRequest.Create(requestUrl);
 
-            return await this.GetAsync<PersonGroup[]>("Get", request);
+            return await GetAsync<PersonGroup[]>("Get", request);
         }
 
         /// <summary>
@@ -271,10 +271,10 @@ namespace Oltiva.Azure.FaceApi
         /// <returns>Task object.</returns>
         public async Task TrainPersonGroupAsync(string personGroupId)
         {
-            var requestUrl = string.Format("{0}/{1}/{2}/{3}?{4}={5}", ServiceHost, PersonGroupsQuery, personGroupId, TrainingQuery, SubscriptionKeyName, this.subscriptionKey);
+            var requestUrl = string.Format("{0}/{1}/{2}/{3}?{4}={5}", ServiceHost, PersonGroupsQuery, personGroupId, TrainingQuery, SubscriptionKeyName, subscriptionKey);
             var request = WebRequest.Create(requestUrl);
 
-            await this.SendAsync<object, object>("POST", null, request);
+            await SendAsync<object, object>("POST", null, request);
         }
 
         /// <summary>
@@ -284,10 +284,10 @@ namespace Oltiva.Azure.FaceApi
         /// <returns>The person group training status.</returns>
         public async Task<TrainingStatus> GetPersonGroupTrainingStatusAsync(string personGroupId)
         {
-            var requestUrl = string.Format("{0}/{1}/{2}/{3}?{4}={5}", ServiceHost, PersonGroupsQuery, personGroupId, TrainingQuery, SubscriptionKeyName, this.subscriptionKey);
+            var requestUrl = string.Format("{0}/{1}/{2}/{3}?{4}={5}", ServiceHost, PersonGroupsQuery, personGroupId, TrainingQuery, SubscriptionKeyName, subscriptionKey);
             var request = WebRequest.Create(requestUrl);
 
-            return await this.GetAsync<TrainingStatus>("GET", request);
+            return await GetAsync<TrainingStatus>("GET", request);
         }
 
         /// <summary>
@@ -300,7 +300,7 @@ namespace Oltiva.Azure.FaceApi
         /// <returns>The CreatePersonResult entity.</returns>
         public async Task<CreatePersonResult> CreatePersonAsync(string personGroupId, Guid[] faceIds, string name, string userData = null)
         {
-            var requestUrl = string.Format("{0}/{1}/{2}/{3}?{4}={5}", ServiceHost, PersonGroupsQuery, personGroupId, PersonsQuery, SubscriptionKeyName, this.subscriptionKey);
+            var requestUrl = string.Format("{0}/{1}/{2}/{3}?{4}={5}", ServiceHost, PersonGroupsQuery, personGroupId, PersonsQuery, SubscriptionKeyName, subscriptionKey);
             var request = WebRequest.Create(requestUrl);
 
             dynamic requestBody = new ExpandoObject();
@@ -319,10 +319,10 @@ namespace Oltiva.Azure.FaceApi
         /// <returns>The person entity.</returns>
         public async Task<Person> GetPersonAsync(string personGroupId, Guid personId)
         {
-            var requestUrl = string.Format("{0}/{1}/{2}/{3}/{4}?{5}={6}", ServiceHost, PersonGroupsQuery, personGroupId, PersonsQuery, personId, SubscriptionKeyName, this.subscriptionKey);
+            var requestUrl = string.Format("{0}/{1}/{2}/{3}/{4}?{5}={6}", ServiceHost, PersonGroupsQuery, personGroupId, PersonsQuery, personId, SubscriptionKeyName, subscriptionKey);
             var request = WebRequest.Create(requestUrl);
 
-            return await this.GetAsync<Person>("Get", request);
+            return await GetAsync<Person>("Get", request);
         }
 
         /// <summary>
@@ -336,7 +336,7 @@ namespace Oltiva.Azure.FaceApi
         /// <returns>Task object.</returns>
         public async Task UpdatePersonAsync(string personGroupId, Guid personId, Guid[] faceIds, string name, string userData = null)
         {
-            var requestUrl = string.Format("{0}/{1}/{2}/{3}/{4}?{5}={6}", ServiceHost, PersonGroupsQuery, personGroupId, PersonsQuery, personId, SubscriptionKeyName, this.subscriptionKey);
+            var requestUrl = string.Format("{0}/{1}/{2}/{3}/{4}?{5}={6}", ServiceHost, PersonGroupsQuery, personGroupId, PersonsQuery, personId, SubscriptionKeyName, subscriptionKey);
             var request = WebRequest.Create(requestUrl);
 
             dynamic requestBody = new ExpandoObject();
@@ -355,10 +355,10 @@ namespace Oltiva.Azure.FaceApi
         /// <returns>Task object.</returns>
         public async Task DeletePersonAsync(string personGroupId, Guid personId)
         {
-            var requestUrl = string.Format("{0}/{1}/{2}/{3}/{4}?{5}={6}", ServiceHost, PersonGroupsQuery, personGroupId, PersonsQuery, personId, SubscriptionKeyName, this.subscriptionKey);
+            var requestUrl = string.Format("{0}/{1}/{2}/{3}/{4}?{5}={6}", ServiceHost, PersonGroupsQuery, personGroupId, PersonsQuery, personId, SubscriptionKeyName, subscriptionKey);
             var request = WebRequest.Create(requestUrl);
 
-            await this.GetAsync<object>("DELETE", request);
+            await GetAsync<object>("DELETE", request);
         }
 
         /// <summary>
@@ -377,10 +377,10 @@ namespace Oltiva.Azure.FaceApi
                 personGroupId,
                 PersonsQuery,
                 SubscriptionKeyName,
-                this.subscriptionKey);
+                subscriptionKey);
             var request = WebRequest.Create(requestUrl);
 
-            return await this.GetAsync<Person[]>("Get", request);
+            return await GetAsync<Person[]>("Get", request);
         }
 
         /// <summary>
@@ -395,7 +395,7 @@ namespace Oltiva.Azure.FaceApi
         /// </returns>
         public async Task AddPersonFaceAsync(string personGroupId, Guid personId, Guid faceId, string userData = null)
         {
-            var requestUrl = string.Format("{0}/{1}/{2}/{3}/{4}/{5}/{6}?{7}={8}", ServiceHost, PersonGroupsQuery, personGroupId, PersonsQuery, personId, FacesQuery, faceId, SubscriptionKeyName, this.subscriptionKey);
+            var requestUrl = string.Format("{0}/{1}/{2}/{3}/{4}/{5}/{6}?{7}={8}", ServiceHost, PersonGroupsQuery, personGroupId, PersonsQuery, personId, FacesQuery, faceId, SubscriptionKeyName, subscriptionKey);
             var request = WebRequest.Create(requestUrl);
 
             dynamic requestBody = new ExpandoObject();
@@ -415,10 +415,10 @@ namespace Oltiva.Azure.FaceApi
         /// </returns>
         public async Task<PersonFace> GetPersonFaceAsync(string personGroupId, Guid personId, Guid faceId)
         {
-            var requestUrl = string.Format("{0}/{1}/{2}/{3}/{4}/{5}/{6}?{7}={8}", ServiceHost, PersonGroupsQuery, personGroupId, PersonsQuery, personId, FacesQuery, faceId, SubscriptionKeyName, this.subscriptionKey);
+            var requestUrl = string.Format("{0}/{1}/{2}/{3}/{4}/{5}/{6}?{7}={8}", ServiceHost, PersonGroupsQuery, personGroupId, PersonsQuery, personId, FacesQuery, faceId, SubscriptionKeyName, subscriptionKey);
             var request = WebRequest.Create(requestUrl);
 
-            return await this.GetAsync<PersonFace>("GET", request);
+            return await GetAsync<PersonFace>("GET", request);
         }
 
         /// <summary>
@@ -433,7 +433,7 @@ namespace Oltiva.Azure.FaceApi
         /// </returns>
         public async Task UpdatePersonFaceAsync(string personGroupId, Guid personId, Guid faceId, string userData)
         {
-            var requestUrl = string.Format("{0}/{1}/{2}/{3}/{4}/{5}/{6}?{7}={8}", ServiceHost, PersonGroupsQuery, personGroupId, PersonsQuery, personId, FacesQuery, faceId, SubscriptionKeyName, this.subscriptionKey);
+            var requestUrl = string.Format("{0}/{1}/{2}/{3}/{4}/{5}/{6}?{7}={8}", ServiceHost, PersonGroupsQuery, personGroupId, PersonsQuery, personId, FacesQuery, faceId, SubscriptionKeyName, subscriptionKey);
             var request = WebRequest.Create(requestUrl);
 
             dynamic requestBody = new ExpandoObject();
@@ -453,10 +453,10 @@ namespace Oltiva.Azure.FaceApi
         /// </returns>
         public async Task DeletePersonFaceAsync(string personGroupId, Guid personId, Guid faceId)
         {
-            var requestUrl = string.Format("{0}/{1}/{2}/{3}/{4}/{5}/{6}?{7}={8}", ServiceHost, PersonGroupsQuery, personGroupId, PersonsQuery, personId, FacesQuery, faceId, SubscriptionKeyName, this.subscriptionKey);
+            var requestUrl = string.Format("{0}/{1}/{2}/{3}/{4}/{5}/{6}?{7}={8}", ServiceHost, PersonGroupsQuery, personGroupId, PersonsQuery, personId, FacesQuery, faceId, SubscriptionKeyName, subscriptionKey);
             var request = WebRequest.Create(requestUrl);
 
-            await this.GetAsync<object>("DELETE", request);
+            await GetAsync<object>("DELETE", request);
         }
 
         /// <summary>
@@ -469,7 +469,7 @@ namespace Oltiva.Azure.FaceApi
         /// </returns>
         public async Task<SimilarFace[]> FindSimilarAsync(Guid faceId, Guid[] faceIds)
         {
-            var requestUrl = string.Format("{0}/findsimilars?{1}={2}", ServiceHost, SubscriptionKeyName, this.subscriptionKey);
+            var requestUrl = string.Format("{0}/findsimilars?{1}={2}", ServiceHost, SubscriptionKeyName, subscriptionKey);
             var request = WebRequest.Create(requestUrl);
 
             dynamic requestBody = new ExpandoObject();
@@ -488,7 +488,7 @@ namespace Oltiva.Azure.FaceApi
         /// </returns>
         public async Task<GroupResult> GroupAsync(Guid[] faceIds)
         {
-            var requestUrl = string.Format("{0}/groupings?{1}={2}", ServiceHost, SubscriptionKeyName, this.subscriptionKey);
+            var requestUrl = string.Format("{0}/groupings?{1}={2}", ServiceHost, SubscriptionKeyName, subscriptionKey);
             var request = WebRequest.Create(requestUrl);
 
             dynamic requestBody = new ExpandoObject();
@@ -522,7 +522,7 @@ namespace Oltiva.Azure.FaceApi
                 request.Method = method;
                 if (null == setHeadersCallback)
                 {
-                    this.SetCommonHeaders(request);
+                    SetCommonHeaders(request);
                 }
                 else
                 {
@@ -534,11 +534,11 @@ namespace Oltiva.Azure.FaceApi
                     request.EndGetResponse,
                     null);
 
-                return this.ProcessAsyncResponse<TResponse>(response as HttpWebResponse);
+                return ProcessAsyncResponse<TResponse>(response as HttpWebResponse);
             }
             catch (Exception e)
             {
-                this.HandleException(e);
+                HandleException(e);
                 return default(TResponse);
             }
         }
@@ -568,7 +568,7 @@ namespace Oltiva.Azure.FaceApi
                 request.Method = method;
                 if (null == setHeadersCallback)
                 {
-                    this.SetCommonHeaders(request);
+                    SetCommonHeaders(request);
                 }
                 else
                 {
@@ -582,7 +582,7 @@ namespace Oltiva.Azure.FaceApi
 
                 var asyncState = new WebRequestAsyncState()
                 {
-                    RequestBytes = this.SerializeRequestBody(requestBody),
+                    RequestBytes = SerializeRequestBody(requestBody),
                     WebRequest = (HttpWebRequest)request,
                 };
 
@@ -619,11 +619,11 @@ namespace Oltiva.Azure.FaceApi
                                             continueWebRequest.EndGetResponse,
                                             continueRequestAsyncState);
 
-                return this.ProcessAsyncResponse<TResponse>(response as HttpWebResponse);
+                return ProcessAsyncResponse<TResponse>(response as HttpWebResponse);
             }
             catch (Exception e)
             {
-                this.HandleException(e);
+                HandleException(e);
                 return default(TResponse);
             }
         }
@@ -648,7 +648,7 @@ namespace Oltiva.Azure.FaceApi
                         {
                             if (stream != null)
                             {
-                                return this.DeserializeServiceResponse<T>(stream);
+                                return DeserializeServiceResponse<T>(stream);
                             }
                         }
                     }
@@ -673,7 +673,7 @@ namespace Oltiva.Azure.FaceApi
         /// <typeparam name="T">The type of the response.</typeparam>
         /// <param name="stream">The stream.</param>
         /// <returns>Service response.</returns>
-        private T DeserializeServiceResponse<T>(System.IO.Stream stream)
+        private T DeserializeServiceResponse<T>(Stream stream)
         {
             string message = string.Empty;
             using (StreamReader reader = new StreamReader(stream))
@@ -684,7 +684,7 @@ namespace Oltiva.Azure.FaceApi
             JsonSerializerSettings settings = new JsonSerializerSettings();
             settings.DateFormatHandling = DateFormatHandling.IsoDateFormat;
             settings.NullValueHandling = NullValueHandling.Ignore;
-            settings.ContractResolver = this.defaultResolver;
+            settings.ContractResolver = defaultResolver;
 
             return JsonConvert.DeserializeObject<T>(message, settings);
         }
@@ -705,7 +705,7 @@ namespace Oltiva.Azure.FaceApi
             {
                 JsonSerializerSettings settings = new JsonSerializerSettings();
                 settings.DateFormatHandling = DateFormatHandling.IsoDateFormat;
-                settings.ContractResolver = this.defaultResolver;
+                settings.ContractResolver = defaultResolver;
 
                 return System.Text.Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(requestBody, settings));
             }

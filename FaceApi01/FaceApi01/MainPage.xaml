@@ -5,6 +5,8 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d"
+      Height="768"
+      Width="1024"
       d:DesignHeight="768"
       d:DesignWidth="1024">
 
@@ -31,6 +33,20 @@
                        FontSize="30"
                        Margin="30"
                        Foreground="White">El Bruno - Face Api</TextBlock>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1"
+                    Grid.Column="0"
+                    Orientation="Vertical">
+            <Image x:Name="Image01"
+                   Source="Assets/jesus_thumbs-up_pic-1.jpg"
+                   Width="200"
+                   Height="201" />
+            <Button x:Name="ButtonGetFacesImage1"
+                    FontSize="30"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    Click="ButtonGetFacesImage1_Click">Get Faces</Button>
         </StackPanel>
     </Grid>
 </Page>
