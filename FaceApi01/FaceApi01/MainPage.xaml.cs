@@ -21,9 +21,8 @@ namespace FaceApi01
 
         private async void ButtonGetFacesImage1_Click(object sender, RoutedEventArgs e)
         {
-            string subscriptionKey = "4c138b4d82b947beb2e2926c92d1e514";
-            string fileUrl =
-                @"https://onedrive.live.com/embed?cid=BEF06DFFDB192125&resid=bef06dffdb192125%21627193&authkey=AAo7bmGq3kK1hgg";
+            var subscriptionKey = "4c138b4d82b947beb2e2926c92d1e514";
+            var fileUrl = GetSelectedItemUrl();
             var client = new FaceServiceClient(subscriptionKey);
             var faces = await client.DetectAsync(fileUrl, false, true, true);
         }
@@ -46,9 +45,13 @@ namespace FaceApi01
 
         private void Selector_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            ImageFaces.Source = new BitmapImage(new Uri(GetSelectedItemUrl(), UriKind.RelativeOrAbsolute));
+        }
+
+        private string GetSelectedItemUrl()
+        {
             var odi = ListViewImages.SelectedItem as OneDriveImage;
-            if (odi == null) return;
-            ImageFaces.Source = new BitmapImage(new Uri(odi.OneDriveUrl, UriKind.RelativeOrAbsolute));
+            return odi == null ? "" : odi.OneDriveUrl;
         }
     }
 }
